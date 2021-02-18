@@ -1,1 +1,110 @@
 @charset "ISO-8859-1";
+
+body {
+	background-color: #00ff9d;
+	font-family: "Montserrat", sans-serif;
+	padding-top: 7%;
+	text-align: center;
+}
+
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: cyan;
+  border: 3px solid black;
+  border-radius: 3px;
+  position: fixed; /* Set the navbar to fixed position */
+  top: -2%; /* Position the navbar at the top of the page */
+  width: 100.5%; /* Full width */
+  right: 1.5%;
+  margin-right: -2%;
+}
+
+.title {
+	float: left;
+	color: black;
+	margin-left: 3%;
+	margin-top: 2%;
+	font-weight: bold;
+}
+
+h1 {
+	letter-spacing: 3px;
+	margin-bottom: 2%;
+	text-transform: uppercase;
+}
+
+.form-editable {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 40%; 
+}
+
+.form-editable label {
+	display: flex;
+	flex-direction: column;
+	font-weight: bold;
+	margin-bottom: 2%;
+	text-align: left;
+}
+
+.form-editable input, 
+.form-editable select {
+	border-radius: 3px;
+	margin-top: 1%;
+	padding: 7px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	margin-bottom: 2%;
+	width: 30%;
+}
+
+.form-actions input {
+	width: 45%;
+	margin-bottom: 100px;
+}
+
+.uneditable {
+	background-color: lightgray;
+}
+
+.navbar input {
+  float: right;
+  aligh: right;
+  color: black;
+  text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  margin-right: 2.5%;
+  margin-top: 1.5%;
+}
+
+.hidden {
+	display: block;
+}
+
+.hide {
+	display: flex;
+	text-align: center;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.checkbox {
+	width: 40px;
+	height: 40px;
+	margin-left: 70%;
+}
+
+.text {
+	width: 395px;
+}
+
+.date {
+	width: 405px;
+}

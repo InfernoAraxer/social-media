@@ -1,0 +1,45 @@
+@charset "ISO-8859-1";
+
+body {
+	background-color: #00ff9d;
+	font-family: "Montserrat", sans-serif;
+	padding-top: 7%;
+	text-align: center;
+}
+
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: cyan;
+  border: 3px solid black;
+  border-radius: 3px;
+  position: fixed; /* Set the navbar to fixed position */
+  top: -2%; /* Position the navbar at the top of the page */
+  width: 100.5%; /* Full width */
+  right: 1.5%;
+  margin-right: -2%;
+}
+
+/* Links inside the navbar */
+.navbar input {
+  float: right;
+  aligh: right;
+  color: black;
+  text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  margin-right: 2.5%;
+  margin-top: 1.5%;
+}
+
+.title {
+	float: left;
+	color: black;
+	margin-left: 3%;
+	margin-top: 2%;
+	font-weight: bold;
+}
+
+h2 {
+	margin-top: -1.5%;
+}

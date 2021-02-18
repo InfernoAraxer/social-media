@@ -8,23 +8,27 @@ public class User {
 	private String lastName;
 	private String highschool;
 	private String hometown;
-	private Date dateOfBirth;
-	private Date dateOfBirthHidden;
+	private String university;
+	private String dateOfBirth;
+	private String dateOfBirthHidden;
 	private String emailAddress;
 	private String emailAddressHidden;
 	private String password;
 	private String phoneNumber;
 	private String phoneNumberHidden;
-	private Date lastModifiedDate;
-	private Date loginDate;
-	private Date lastLoginDate;
+	private String lastModifiedDate;
+	private String loginDate;
+	private String lastLoginDate;
+	private String base64Image;
+	
 
-	public User (int id, String firstName, String lastName, String highschool, String hometown, Date dateOfBirth, Date dateOfBirthHidden, String password, String emailAddress, String emailAddressHidden, String phoneNumber, String phoneNumberHidden, Date lastModifiedDate, Date loginDate, Date lastLoginDate) {
+	public User (int id, String firstName, String lastName, String highschool, String hometown, String university, String dateOfBirth, String dateOfBirthHidden, String password, String emailAddress, String emailAddressHidden, String phoneNumber, String phoneNumberHidden, String lastModifiedDate, String loginDate, String lastLoginDate, String base64Image) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.highschool = highschool;
 		this.hometown = hometown;
+		this.university = university;
 		this.dateOfBirth = dateOfBirth;
 		this.dateOfBirthHidden = dateOfBirthHidden;
 		this.emailAddress = emailAddress;
@@ -35,6 +39,7 @@ public class User {
 		this.lastModifiedDate = lastModifiedDate;
 		this.loginDate = loginDate;
 		this.lastLoginDate = lastLoginDate;
+		this.base64Image = base64Image;
 	}
 	
 	public int getId() {
@@ -73,19 +78,27 @@ public class User {
 		this.hometown = hometown;
 	}
 
-	public Date getDateOfBirth() {
+	public String getUniversity() {
+		return university;
+	}
+	
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+	
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 	
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Date getDateOfBirthHidden() {
+	public String getDateOfBirthHidden() {
 		return dateOfBirthHidden;
 	}
 	
-	public void setDateOfBirthHidden(Date dateOfBirthHidden) {
+	public void setDateOfBirthHidden(String dateOfBirthHidden) {
 		this.dateOfBirthHidden = dateOfBirthHidden;
 	}
 
@@ -129,28 +142,36 @@ public class User {
 		this.phoneNumberHidden = phoneNumberHidden;
 	}
 
-	public Date getLastModifiedDate() {
+	public String getLastModifiedDate() {
 		return lastModifiedDate;
 	}
 	
-	public void setLastModifiedDate(Date lastModifiedDate) {
+	public void setLastModifiedDate(String lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public Date getLoginDate() {
+	public String getLoginDate() {
 		return loginDate;
 	}
 	
-	public void setLoginDate(Date loginDate) {
+	public void setLoginDate(String loginDate) {
 		this.loginDate = loginDate;
 	}
 
-	public Date getLastLoginDate() {
+	public String getLastLoginDate() {
 		return lastLoginDate;
 	}
 	
-	public void setLastLoginDate(Date lastLoginDate) {
+	public void setLastLoginDate(String lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
+	
+	public String getBase64Image() {
+        return base64Image;
+    }
+ 
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
 	
 }

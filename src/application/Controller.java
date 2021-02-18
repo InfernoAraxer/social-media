@@ -1,16 +1,30 @@
 package application;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import library.User;
 import library.UserDAO;
@@ -42,7 +56,9 @@ public class Controller extends HttpServlet {
 			case "/login": login(request, response, false); break;
 			case "/home": viewUsers(request, response); break;
 			case "/edit": showEditForm(request, response); break;
+			case "/editpfp": showEditFormPfp(request, response); break;
 			case "/update": updateUser(request, response); break; 
+			case "/changePic": updatePic(request, response); break; 
 			case "/logout": logout(request, response); break;
 			default: login(request, response, true); break;
 			}
@@ -60,6 +76,7 @@ public class Controller extends HttpServlet {
             String destPage = "login.jsp";
              
             if (user != null) {
+            	dao.updateLoginTime(user);
             	response.sendRedirect(request.getContextPath() + "/home?id=" + user.getId());
             } else {
                 String message = (firstTime) ? "" : "Invalid email/password";
@@ -88,7 +105,7 @@ public class Controller extends HttpServlet {
 		List<User> rightUsers = new ArrayList<User>();
 		for (int x = 0; x < allUsers.size(); x++) {
 			if (x % 2 == 0) leftUsers.add(allUsers.get(x));
-			if (x % 1 == 0) rightUsers.add(allUsers.get(x));
+			if (x % 2 == 1) rightUsers.add(allUsers.get(x));
 		}
 		
 		request.setAttribute("users", users);
@@ -103,41 +120,71 @@ public class Controller extends HttpServlet {
 		final String action = request.getParameter("action") != null
 			? request.getParameter("action")
 			: request.getParameter("submit").toLowerCase();
+			
 		final int id = Integer.parseInt(request.getParameter("id"));
-		
 		User user = dao.getUser(id);
 		switch (action) {
 			case "save":
 				String firstName = request.getParameter("firstName");
-				String lastName = request.getParameter("firstName");
-				String highschool = request.getParameter("firstName");
-				String hometown = request.getParameter("firstName");
-				String month = request.getParameter("firstName");
-				String day = request.getParameter("firstName");
-				String year = request.getParameter("firstName");
-				String dobHidden = request.getParameter("firstName");
-				String emailAddress = request.getParameter("firstName");
-				String emailAddressHidden = request.getParameter("firstName");
-				String phoneNumber = request.getParameter("firstName");
-				String phoneNumberHidden = request.getParameter("description");
+				String lastName = request.getParameter("lastName");
+				String highschool = request.getParameter("highschool");
+				String hometown = request.getParameter("hometown");
+				String university = request.getParameter("university");
+				String dobHidden = request.getParameter("dob");
+				String dob = (request.getParameter("dobHidden") == null) ? dobHidden : "XXXX-XX-XX";
+				String emailAddressHidden = request.getParameter("email");
+				String emailAddress = (request.getParameter("emailHidden") == null) ? emailAddressHidden : "Hidden";
+				String password = request.getParameter("password");
+				String phoneNumberHidden = request.getParameter("phone");
+				String phoneNumber = (request.getParameter("phoneHidden") == null) ? phoneNumberHidden : "XXXXXXXXXX";
 
 				user.setFirstName(firstName);
 				user.setLastName(lastName);
 				user.setHighschool(highschool);
 				user.setHometown(hometown);
-				//user.setDateOfBirth();
-				//user.setDateOfBirthHidden(name);
+				user.setUniversity(university);
+				user.setDateOfBirth(dob);
+				user.setDateOfBirthHidden(dobHidden);
 				user.setEmailAddress(emailAddress);
 				user.setEmailAddressHidden(emailAddressHidden);
+				user.setPassword(password);
 				user.setPhoneNumber(phoneNumber);
 				user.setPhoneNumberHidden(phoneNumberHidden);
 				
+				dao.updateUser(user);
+				
+				response.sendRedirect(request.getContextPath() + "/home?id=" + id);
+				
+				break;
+			case "back":
+				response.sendRedirect(request.getContextPath() + "/home?id=" + id);
 				break;
 		}
+	}
+
+	private void updatePic(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		final String action = request.getParameter("action") != null
+			? request.getParameter("action")
+			: request.getParameter("submit").toLowerCase();
+			
+		final int id = Integer.parseInt(request.getParameter("id"));
+		User user = dao.getUser(id);
 		
-		dao.updateUser(user);
-		
-		response.sendRedirect(request.getContextPath() + "/");
+		switch (action) {
+			case "submit":
+				String myloc = request.getParameter("image");
+				File image = new File(myloc);
+				FileInputStream fis = new FileInputStream(image);
+				
+				dao.updateUserPic(user, fis, image);
+				
+				response.sendRedirect(request.getContextPath() + "/home?id=" + id);
+				
+				break;
+			case "back":
+				response.sendRedirect(request.getContextPath() + "/home?id=" + id);
+				break;
+		}
 	}
 	
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -145,12 +192,25 @@ public class Controller extends HttpServlet {
 			final int id = Integer.parseInt(request.getParameter("id"));
 			
 			User user = dao.getUser(id);
-
-			request.setAttribute("users", user);
+			request.setAttribute("user", user); 
 		} catch (NumberFormatException e) {
 			
 		} finally {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("editForm.jsp");
+			dispatcher.forward(request, response);
+		}
+	}
+	
+	private void showEditFormPfp(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		try {
+			final int id = Integer.parseInt(request.getParameter("id"));
+			
+			User user = dao.getUser(id);
+			request.setAttribute("user", user); 
+		} catch (NumberFormatException e) {
+			
+		} finally {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("changePic.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

@@ -34,9 +34,10 @@ body {
 
 .title {
 	float: left;
-	color: white;
+	color: black;
 	margin-left: 3%;
 	margin-top: 2%;
+	font-weight: bold;
 }
 
 .content table{
@@ -56,9 +57,68 @@ body {
 	float: left;
 }
 
+.left-people table{
+	margin-bottom: 2%;
+	height: 100px;
+}
+
 .right-people {
 	margin-top: 2%;
 	width: 48%;
 	right-margin: 2.5%;
 	float: right;
+}
+
+.right-people table {
+	margin-bottom: 2%;
+	height: 100px;
+}
+
+.pfp {
+	width: 105px;
+	max-width: 105px;
+	max-height: 105px;
+}
+
+.main-pfp {
+	width: 190px;
+	height: 220px;
+}
+
+.header-button {
+	background-color: lightcoral;
+	border: 1px solid black;
+	border-radius: 7px;
+	color: black;
+	font-weight: bold;
+	padding: 20px;
+	padding-left: 15%;
+	padding-right: 15%;
+	text-align: center;
+	text-decoration: none;
+	width: 45%;
+}
+
+.header-button:active {
+	background-color: coral;
+	color: white; 
+}
+
+.name-and-dob,
+.highschool-and-email,
+.hometown-and-phone,
+.update-profile {
+	height: 55px;
+}
+
+.content.hometown-and-phone,
+.content.highschool-and-email,
+.content.name-and-dob  {
+	height: 62px;
+}
+
+.content .hometown-and-phone,
+.content .highschool-and-email,
+.content .name-and-dob  {
+	width: 27.5%;
 }
