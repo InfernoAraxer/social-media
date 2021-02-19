@@ -41,5 +41,54 @@ body {
 }
 
 h2 {
-	margin-top: -1.5%;
+	margin-top: -1%;
+}
+
+.table td {
+	width: 195px;
+	background-color: white;
+}
+
+.table table{
+  	width: 100%;
+  	background-color: black;
+  	border: 3px solid black;
+  	margin-bottom: 5px;
+}
+
+.header-button {
+	background-color: lightcoral;
+	border: 1px solid black;
+	border-radius: 7px;
+	color: black;
+	font-weight: bold;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	width: 10%;
+}
+
+.header-button:active {
+	background-color: coral;
+	color: white; 
+}
+
+.file-upload {
+	margin-left: 5%;
+}
+
+.inputs {
+	margin-top: 12%;
+}
+
+.pfp {
+	max-width: 195px;
+	max-height: 195px;
+}
+
+.pfp-image {
+	height: auto;
+	width: auto;
+	max-width: 190px;
+	max-height: 190px;
 }

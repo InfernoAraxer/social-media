@@ -11,7 +11,10 @@
 		</style>
 	</head>
 	<body>
-	    <div style="text-align: center">
+		<div class="navbar">
+		  <h2 class="title">Mask Stories</h2>
+		</div>
+	    <div class="content" style="text-align: center">
 	        <h1>Mask Stories Login</h1>
 	        <form action="login" method="post">
 	            <label for="email">Email:</label>
@@ -21,7 +24,7 @@
 	            <input type="password" name="password" size="30" />
 	            <br><br>${message}
 	            <br><br>           
-	            <button type="submit">Login</button>
+	            <button class="header-button" type="submit">Login</button>
 	        </form>
 	    </div>
 	</body>

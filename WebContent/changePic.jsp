@@ -18,18 +18,64 @@
 			  </form>
 		</div>
 		<div class="content">
-			<c:if test="${user != null}">
-				<h2>Change Profile Pic</h2>
-				<form action = "changePic" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="id" value="<c:out value="${user.id}" />" />
-					<input type="submit" value="Submit" name="submit" />
-					<label for="Profile Photo">Profile Photo:</label> <input type="file" name="image" multiple />
-				</form>
-				<form action="update" method="post">
-					<input type="hidden" name="id" value="<c:out value="${user.id}" />" />
-					<input type="submit" value="Back" name="submit" />
-				</form>
+			<c:if test="${image1 == null}">
+				<h2>Change Profile Pic: Add Images</h2>
+				<div class="inputs">
+					<form action = "changePic" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="<c:out value="${user.id}" />" />
+						<div class="file-upload">
+							<label for="Profile Photo">Profile Photos:</label> 
+							<input class="file-button" type="file" name="image" multiple/><br><br>
+						</div>
+						<input class="header-button" type="submit" value="Submit" name="submit" />
+					</form>
+					<br>
+					<form action="update" method="post">
+						<input type="hidden" name="id" value="<c:out value="${user.id}" />" />
+						<input class="header-button" type="submit" value="Back" name="submit" />
+					</form>
+				</div>
 			</c:if>
+			<div class="table">
+					<form action = "selectPic" method="post">
+						<c:if test="${image1 != null && image1.size() != 0}">
+							<h2>Change Profile Pic: Choose One</h2>
+							<input type="hidden" name="id" value="<c:out value="${user.id}" />" />
+							<table border="1">
+								<c:forEach items="${image1}" var="image">
+				   	 				<td class="pfp"><img src="data:image/jpg;base64,${image.base64Image}"  class="pfp-image"/><br><button type="submit" name="image" value="<c:out value="${image.id}"/>">Select</button></td>
+								</c:forEach>
+							</table>
+						</c:if>
+						<c:if test="${image2 != null && image2.size() != 0}">
+							<table border="1">
+								<c:forEach items="${image2}" var="image">
+				   	 				<td class="pfp"><img src="data:image/jpg;base64,${image.base64Image}"  class="pfp-image"/><br><button type="submit" name="image" value="<c:out value="${image.id}"/>">Select</button></td>
+								</c:forEach>
+							</table>
+						</c:if>
+						<c:if test="${image3 != null && image3.size() != 0}">
+							<table border="1">
+								<c:forEach items="${image3}" var="image">
+				   	 				<td class="pfp"><img src="data:image/jpg;base64,${image.base64Image}"  class="pfp-image"/><br><button type="submit" name="image" value="<c:out value="${image.id}"/>">Select</button></td>
+								</c:forEach>
+							</table>
+						</c:if>
+						<c:if test="${image4 != null && image4.size() != 0}">
+							<table border="1">
+								<c:forEach items="${image4}" var="image">
+				   	 				<td class="pfp"><img src="data:image/jpg;base64,${image.base64Image}"  class="pfp-image"/><br><button type="submit" name="image" value="<c:out value="${image.id}"/>">Select</button></td>
+								</c:forEach>
+							</table>
+						</c:if>
+					</form>
+				<c:if test="${image1 != null}">
+					<form action="removeImages" method="post">
+						<input type="hidden" name="id" value="<c:out value="${user.id}" />" />
+						<input type="submit" value="Back" name="submit" />
+					</form>
+				</c:if>
+			</div>
 		</div>
 	</body>
 </html>

@@ -43,9 +43,9 @@
 					</div>
 					
 					<div class="hide">
-						<label>Email Address: <input class="text" type="text" name="email" value="<c:out value="${user.emailAddress}" />" /></label>
+						<label>Email Address: <input class="text" type="text" name="email" value="<c:out value="${user.emailAddressHidden}" />" /></label>
 						<c:choose>
-							<c:when test="${user.password == 'Hidden'}">
+							<c:when test="${user.emailAddress == 'Hidden'}">
 								<label>Hide Email Address: <input type="checkbox" name="emailHidden" value="checked" class="checkbox" checked></label>
 							</c:when>
 							<c:otherwise>
@@ -67,7 +67,7 @@
 						
 					</div>
 					
-					<label>Password: <input type="password" name="password" value="<c:out value="${user.emailAddressHidden}" />" /></label>
+					<label>Password: <input type="password" name="password" value="<c:out value="${user.password}" />" /></label>
 					<div class="form-actions">
 						<input type="submit" value="Back" name="submit" />
 						<input type="submit" value="Save" name="submit" />

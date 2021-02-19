@@ -5,8 +5,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -318,24 +316,5 @@ public class UserDAO {
 		return DriverManager.getConnection(url, username, password);
 	}
 	
-    public boolean updateUserPic(User user, FileInputStream fis, File image) throws SQLException {
-    	final String sql = "UPDATE users SET last_modified_date = ?, image = ?" +
-    		"WHERE user_id = ?"; 
-    			
-    	SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss", Locale.ENGLISH);
-    	Date date = new Date(System.currentTimeMillis());
 
-        Connection conn = getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-                
-        pstmt.setString(1, sdf.format(date));
-        pstmt.setBinaryStream(2, (InputStream) fis, (int) (image.length()));
-        pstmt.setInt(3, user.getId());
-        int affected = pstmt.executeUpdate();
-        
-        pstmt.close();
-        conn.close();
-        
-        return affected == 1;
-    }
 }
